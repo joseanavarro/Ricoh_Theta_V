@@ -57,7 +57,7 @@ app.post("/osc/commands/status", function (req, res) {
   let data2 = {
     name: "camera.takePicture",
     results: {
-      "fileUrl": "http://192.168.1.38:8000/R0010043.JPG"
+      "fileUrl": "https://4040-b8065f34-d9af-46fa-901d-12b28ccd0e5d.ws-eu.gitpod.io/files/R0010043.JPG"
     },
     state: "done"
   };
@@ -139,7 +139,7 @@ app.post("/osc/commands/execute/", function (req, res) {
               _projectionType: "Equirectangular",
               _thumbSize: 10078,
               dateTimeZone: "2018:05:05 13:34:44+02:00",
-              fileUrl: "http://192.168.1.38:8000/R0010043.JPG",
+              fileUrl: "https://4040-b8065f34-d9af-46fa-901d-12b28ccd0e5d.ws-eu.gitpod.io/files/R0010043.JPG",
               height: 2688,
               isProcessed: true,
               lat: 41.3764,
