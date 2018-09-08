@@ -14,40 +14,6 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-//=============================================================================
-// Mensajes GET
-//=============================================================================
-
-//--------------------------------
-// información de la cámara
-//--------------------------------
-app.get("/osc/info", function (req, res) {
-  let data = {
-    api: [
-      "/osc/info",
-      "/osc/state",
-      "/osc/checkForUpdates",
-      "/osc/commands/execute",
-      "/osc/commands/status"
-    ],
-    apiLevel: [2],
-    _bluetoothMacAddress: "00:26:73:D5:43:D0",
-    endpoints: {
-      httpPort: 80,
-      httpUpdatesPort: 80
-    },
-    firmwareVersion: "2.11.1",
-    gps: false,
-    gyro: true,
-    manufacturer: "RICOH",
-    model: "RICOH THETA V",
-    serialNumber: "00104579",
-    supportUrl: "https://theta360.com/en/support/",
-    uptime: 361,
-    _wlanMacAddress: "00:26:73:D5:A1:F4"
-  };
-  res.status(200).send(data);
-});
 
 //=============================================================================
 // Mensajes POST
@@ -235,9 +201,68 @@ app.post("/osc/commands/execute/", function (req, res) {
       };
   }
 
-  // Do something, like query a database or save data
-
   res.status(200).send(data);
 });
+
+//=============================================================================
+// Mensajes GET
+//=============================================================================
+
+//--------------------------------
+// información de la cámara
+//--------------------------------
+app.get("/osc/info", function (req, res) {
+  let data = {
+    api: [
+      "/osc/info",
+      "/osc/state",
+      "/osc/checkForUpdates",
+      "/osc/commands/execute",
+      "/osc/commands/status"
+    ],
+    apiLevel: [2],
+    _bluetoothMacAddress: "00:26:73:D5:43:D0",
+    endpoints: {
+      httpPort: 80,
+      httpUpdatesPort: 80
+    },
+    firmwareVersion: "2.11.1",
+    gps: false,
+    gyro: true,
+    manufacturer: "RICOH",
+    model: "RICOH THETA V",
+    serialNumber: "00104579",
+    supportUrl: "https://theta360.com/en/support/",
+    uptime: 361,
+    _wlanMacAddress: "00:26:73:D5:A1:F4"
+  };
+  res.status(200).send(data);
+});
+
+//-----------------------------------------------
+// files
+//-----------------------------------------------
+app.get('/files/:name', function (req, res, next) {
+
+  var options = {
+    root: __dirname + '/',
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
+    }
+  };
+
+  var fileName = 'files/' + req.params.name;
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+      next(err);
+    } else {
+      console.log('Sent:', fileName);
+    }
+  });
+
+});
+
 
 module.exports = app;
